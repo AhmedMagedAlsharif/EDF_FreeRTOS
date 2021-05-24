@@ -89,7 +89,7 @@ int tsk3_IN = 0, tsk3_OUT = 0, tsk3_TOT;
 int sys_time = 0;
 int cpu_load = 0;
 
-char runTimeStatsBuf[190];
+char runTimeStatsBuf[200];
 
 /*
  * Configure the processor for use with the Keil demo board.  This is very
@@ -111,12 +111,12 @@ void Task_1( void * pvParameters )
     for( ;; )
     {
 		/* Task code goes here. */
-		for(i=0;i<10000;i++)
+		for(i=0;i<401220;i++)
 		{
 			/*Simulate heavy load*/
 		}
 		
-		vTaskDelayUntil(&xLastWakeTime, 80);
+		vTaskDelayUntil( &xLastWakeTime, 100 );
 		}
 }
 
@@ -137,7 +137,7 @@ void Task_2( void * pvParameters )
 			/*Simulate heavy load*/
 		}
 		
-		vTaskDelayUntil(&xLastWakeTime,50);
+		vTaskDelayUntil(&xLastWakeTime, 50);
 		}
 }
 
@@ -153,7 +153,7 @@ void Task_3( void * pvParameters )
     {
 		
 		/* Task code goes here. */
-		for(i=0;i<40122;i++)
+		for(i=0;i<10000;i++)
 		{
 			/*Simulate heavy load*/
 		}
@@ -182,13 +182,13 @@ int main( void )
 						( void * ) 0,    			/* Parameter passed into the task. */
 						1,										/* Priority at which the task is created. */
 						&Task1Handler,
-						80); 			/* Used to pass out the created task's handle. */
+						100); 			/* Used to pass out the created task's handle. */
     xTaskPeriodicCreate(
 						Task_2,      		/* Function that implements the task. */
 						"Task 2",        /* Text name for the task. */
 						100,      						/* Stack size in words, not bytes. */
 						( void * ) 0,    			/* Parameter passed into the task. */
-						1,										/* Priority at which the task is created. */
+						2,										/* Priority at which the task is created. */
 						&Task2Handler,
 						50); 			/* Used to pass out the created task's handle. */
 	xTaskPeriodicCreate(
@@ -196,7 +196,7 @@ int main( void )
 						"Task 3",        /* Text name for the task. */
 						100,      						/* Stack size in words, not bytes. */
 						( void * ) 0,    			/* Parameter passed into the task. */
-						1,										/* Priority at which the task is created. */
+						3,										/* Priority at which the task is created. */
 						&Task3Handler,				/* Used to pass out the created task's handle. */
 						30);
 
